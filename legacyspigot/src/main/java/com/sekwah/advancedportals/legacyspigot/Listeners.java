@@ -5,9 +5,10 @@ import com.sekwah.advancedportals.core.repository.ConfigRepository;
 import com.sekwah.advancedportals.core.serializeddata.BlockLocation;
 import com.sekwah.advancedportals.core.services.PortalServices;
 import com.sekwah.advancedportals.legacyspigot.connector.container.LegacySpigotEntityContainer;
-import com.sekwah.advancedportals.shadowed.inject.Inject;
 import com.sekwah.advancedportals.legacyspigot.connector.container.LegacySpigotPlayerContainer;
 import com.sekwah.advancedportals.legacyspigot.utils.ContainerHelpers;
+import com.sekwah.advancedportals.shadowed.inject.Inject;
+import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -18,7 +19,6 @@ import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
-import java.util.List;
 
 /**
  * Some of these will be passed to the core listener to handle the events,
@@ -37,19 +37,22 @@ public class Listeners implements Listener {
     // Entity and portal events
     @EventHandler
     public void onJoinEvent(PlayerJoinEvent event) {
-        coreListeners.playerJoin(new LegacySpigotPlayerContainer(event.getPlayer()));
+        coreListeners.playerJoin(
+            new LegacySpigotPlayerContainer(event.getPlayer()));
     }
 
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent event) {
-        coreListeners.playerLeave(new LegacySpigotPlayerContainer(event.getPlayer()));
+        coreListeners.playerLeave(
+            new LegacySpigotPlayerContainer(event.getPlayer()));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onMoveEvent(PlayerMoveEvent event) {
         Location to = event.getTo();
-        coreListeners.playerMove(new LegacySpigotPlayerContainer(event.getPlayer()),
-                                 ContainerHelpers.toPlayerLocation(to));
+        coreListeners.playerMove(
+            new LegacySpigotPlayerContainer(event.getPlayer()),
+            ContainerHelpers.toPlayerLocation(to));
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -120,7 +123,8 @@ public class Listeners implements Listener {
 
     @EventHandler
     public void onWorldChangeEvent(PlayerChangedWorldEvent event) {
-        coreListeners.worldChange(new LegacySpigotPlayerContainer(event.getPlayer()));
+        coreListeners.worldChange(
+            new LegacySpigotPlayerContainer(event.getPlayer()));
     }
 
     @EventHandler
