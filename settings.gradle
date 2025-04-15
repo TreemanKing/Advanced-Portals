@@ -7,7 +7,10 @@ include 'lang'
 // Implementations
 include 'spigot'
 include 'legacyspigot'
+include 'folia'
 
 // Proxies
 include 'velocity'
 include 'bungee'
+include 'folia'
+
