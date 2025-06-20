@@ -158,7 +158,6 @@ generateTemplates.configure {
 
 sourceSets.main.resources.srcDir(generateTemplates.map { it.outputs })
 
-
 apply from: '../curse.gradle'
 
 supportedVersions = [
