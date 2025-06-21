@@ -149,7 +149,7 @@ public class AdvancedPortal implements TagTarget {
 
         if (!Permissions.USE_PORTAL.hasPermission(player)) {
             player.sendMessage(Lang.translate("portal.error.nopermission"));
-            return ActivationResult.FAILED_DO_NOTHING;
+            return ActivationResult.FAILED_DO_KNOCKBACK;
         }
 
         if (playerData.hasJoinCooldown()) {
