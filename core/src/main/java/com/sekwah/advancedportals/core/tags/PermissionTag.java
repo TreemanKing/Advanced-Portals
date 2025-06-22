@@ -26,7 +26,7 @@ public class PermissionTag implements Tag.Activation {
     private final String[] aliases = new String[] {"perm"};
 
     private final TagType[] tagTypes =
-        new TagType[] {TagType.PORTAL, TagType.DESTINATION};
+            new TagType[] {TagType.PORTAL, TagType.DESTINATION};
 
     @Override
     public TagType[] getTagTypes() {
@@ -53,19 +53,24 @@ public class PermissionTag implements Tag.Activation {
     public boolean preActivated(TagTarget target, PlayerContainer player,
                                 ActivationData activeData, String[] argData) {
         String permission = argData[0];
+        String failureMessage = argData.length > 1 ? argData[1] : (Lang.getNegativePrefix() + Lang.translate("portal.error.nopermission"));
+        String successMessage = argData.length > 2 ? argData[2] : null;
         if (permission.startsWith("!")) {
             permission = permission.substring(1);
             if (player.hasPermission(permission)) {
-                player.sendMessage(
-                    Lang.getNegativePrefix()
-                    + Lang.translate("portal.error.nopermission"));
+                player.sendMessage(failureMessage);
                 return false;
+            }
+            if (successMessage != null && !successMessage.isEmpty()) {
+                player.sendMessage(successMessage);
             }
             return true;
         } else if (!player.hasPermission(argData[0])) {
-            player.sendMessage(Lang.getNegativePrefix()
-                               + Lang.translate("portal.error.nopermission"));
+            player.sendMessage(failureMessage);
             return false;
+        }
+        if (successMessage != null && !successMessage.isEmpty()) {
+            player.sendMessage(successMessage);
         }
         return true;
     }
